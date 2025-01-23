@@ -1,15 +1,15 @@
-# Better-Call-Saul: AI Legal Assistant
+# Better-Call-Saul: AI Legal Assistant lawyer 👨‍⚖️
 Coming soon: A legal assistant that provides instant access to laws and rights information from around the world. Empowering you with the knowledge you need, anytime, anywhere.
 
-## Phases of Development
+## Phases of Development 🚀
 
-### Phase 1: MVP Development (Current)
+### Phase 1: MVP Development (Current) 👶
 **Features**:
 - Simple Q&A interface for legal concerns.
 - Location-based responses.
 - Basic lawyer directory.
 
-**Tech Stack**:
+**Tech Stack** 👨‍💻:
 - **Frontend**: React.js 
 - **Backend**: Python (Flask)
 - **Database**: SQLite
