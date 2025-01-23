@@ -1,4 +1,4 @@
-# Better-Call-Saul: AI Legal Assistant
+# Better-Call-Saul: AI Legal Assistant lawyer 👨‍⚖️
 Coming soon: A legal assistant that provides instant access to laws and rights information from around the world. Empowering you with the knowledge you need, anytime, anywhere.
 
 ## Phases of Development
