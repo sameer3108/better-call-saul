@@ -1,10 +1,15 @@
+
+
 from flask import Flask, request, jsonify
 import openai
 
 app = Flask(__name__)
 
+from flask_cors import CORS
+CORS(app)
+
 # Configure OpenAI API
-openai.api_key = "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"
+openai.api_key = ""
 
 @app.route("/api/legal-query", methods=["POST"])
 def legal_query():
