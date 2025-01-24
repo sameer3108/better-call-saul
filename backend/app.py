@@ -15,7 +15,7 @@ load_dotenv(find_dotenv())
 app = Flask(__name__)
 
 # Configuring CORS to allow connections only from React dev server
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "https://bettercallai.netlify.app"}})
 
 # Loading API key
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")  # Securely load the API key

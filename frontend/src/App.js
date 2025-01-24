@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./App.css"; // Add external styles here
+import "./App.css"; 
 
 const App = () => {
   const [location, setLocation] = useState("");
@@ -13,7 +13,7 @@ const App = () => {
     setResponse("");
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/api/legal-query", {
+      const res = await fetch("https://bettercallai-backend.onrender.com/api/legal-query", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
