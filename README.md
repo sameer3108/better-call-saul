@@ -1,6 +1,8 @@
 # Better-Call-Saul: AI Legal Assistant lawyer 👨‍⚖️
 Coming soon: A legal assistant that provides instant access to laws and rights information from around the world. Empowering you with the knowledge you need, anytime, anywhere.
 
+https://bettercallai.netlify.app
+
 ## Phases of Development 🚀
 
 ### Phase 1: MVP Development (Current) 👶
