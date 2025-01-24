@@ -13,7 +13,7 @@ const App = () => {
     setResponse("");
 
     try {
-      const res = await fetch("https://bettercallai-backend.onrender.com/api/legal-query", {
+      const res = await fetch("https://bettercallsaul-backend.onrender.com/api/legal-query", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
