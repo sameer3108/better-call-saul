@@ -8,28 +8,23 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
-# Load API variables
 load_dotenv(find_dotenv())
 
-# Flask app setup
 app = Flask(__name__)
 
-# Configuring CORS to allow connections only from React dev server
 CORS(app, resources={r"/*": {"origins": "https://bettercallai.netlify.app"}})
 
-# Loading API key
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")  # Securely load the API key
+# Loading API key 
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
     raise ValueError("GEMINI_API_KEY is not set in the environment variables.")
 
-# Configure Gemini API client
 genai.configure(api_key=GEMINI_API_KEY)
 
 @app.route("/api/legal-query", methods=["POST"])
 def legal_query():
     logger.debug("Received a POST request at /api/legal-query")
 
-    # Parse request data
     data = request.get_json()
     logger.debug(f"Request data: {data}")
 
@@ -41,19 +36,31 @@ def legal_query():
         return jsonify({"error": "Location and query are required."}), 400
 
     # Create system-level prompt for rules
-    system_prompt = (
-        "You are an advanced legal assistant AI that provides clear, concise, and structured guidance. "
-        "Structure your response as follows:\n"
-        "1. A short summary of key points (2-3 sentences).\n"
-        "2. Immediate actions the user should take (use bullet points).\n"
-        "3. Detailed steps or legal processes (use numbered lists or sections).\n"
-        "4. End with a disclaimer that this is not legal advice and suggest seeking a lawyer for further help."
-    )
-    user_prompt = f"Provide legal guidance based on the following location ({location}) and query: {query}"
-    final_prompt = system_prompt + "\n\n" + user_prompt
+    # user_prompt = f"Provide legal guidance based on the following location ({location}) and query: {query}"
+    # final_prompt = system_prompt + "\n\n" + user_prompt
+
+    final_prompt = f"""
+        You are a professional lawyer providing detailed, accurate, and formal legal advice. 
+        Format the response in a short, clear and concise manner with sections like Key Points, 
+        Immediate Actions, and Next Steps. Use professional tone and avoid informal language.
+        Format it in user friendly way and as a professional lawyer do your best in helping the query below. 
+
+        Respond as follows:
+            1. Start with a brief easy to understand summary (dont say **Summary:**) just have a summary with simple words here.
+            2. Provide actionable steps under proper headings.
+            3. Avoid cluttering the text with too many symbols like "**".
+            4. Explain complex words used.
+            5. You can say no when something is not possible
+            6. If something is not related to legal query, simply end response at summary section.
+
+        Location: {location}
+        Query: {query}
+
+        Please provide legal guidance tailored to the location and query above.
+    """
 
     try:
-        # Call the Gemini API using the official client
+        # Calling Gemini API
         model = genai.GenerativeModel("gemini-1.5-flash")
         response = model.generate_content(final_prompt)
         logger.debug(f"Response from Gemini API: {response}")
@@ -65,7 +72,7 @@ def legal_query():
             answer = "No response available."
 
         # Process answer into sections
-        processed_answer = answer.replace("\n", "<br>")  # Add HTML line breaks for readability
+        processed_answer = answer.replace("\n", "<br>") 
         return jsonify({"answer": processed_answer})
 
     except Exception as e:

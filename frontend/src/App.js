@@ -1,19 +1,22 @@
 import React, { useState } from "react";
-import "./App.css"; 
+import ClipLoader from "react-spinners/ClipLoader";
+import "./App.css";
 
 const App = () => {
   const [location, setLocation] = useState("");
   const [query, setQuery] = useState("");
   const [response, setResponse] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setResponse("");
+    setLoading(true);
 
     try {
-      const res = await fetch("https://better-call-saul.onrender.com/api/legal-query", {
+      const res = await fetch("http://better-call-saul.onrender.com/api/legal-query", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,6 +36,8 @@ const App = () => {
       }
     } catch (err) {
       setError("An error occurred while connecting to the server");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -58,22 +63,29 @@ const App = () => {
             required
           />
         </div>
-        <button type="submit" className="submit-button">
+        <button type="submit" className="submit-button" disabled={loading}>
           Get Advice
         </button>
       </form>
 
-      {response && (
+      {loading && (
+        <div className="spinner-container">
+          <ClipLoader size={50} color={"#007bff"} loading={loading} />
+          <p>Fetching advice, please wait...</p>
+        </div>
+      )}
+
+      {!loading && response && (
         <div className="response-container">
           <h3>Response:</h3>
           <div
             className="response-content"
-            dangerouslySetInnerHTML={{ __html: response }} // Render HTML from the backend
+            dangerouslySetInnerHTML={{ __html: response }}
           />
         </div>
       )}
 
-      {error && (
+      {!loading && error && (
         <div className="error-container">
           <h3>Error:</h3>
           <p>{error}</p>
