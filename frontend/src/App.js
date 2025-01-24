@@ -16,7 +16,7 @@ const App = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://better-call-saul.onrender.com/api/legal-query", {
+      const res = await fetch("https://better-call-saul.onrender.com/api/legal-query", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
