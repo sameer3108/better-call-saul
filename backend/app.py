@@ -15,7 +15,7 @@ load_dotenv(find_dotenv())
 app = Flask(__name__)
 
 # Configuring CORS to allow connections only from React dev server
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Loading API key
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")  # Securely load the API key
@@ -40,14 +40,22 @@ def legal_query():
         logger.error("Location or query missing in the request.")
         return jsonify({"error": "Location and query are required."}), 400
 
-    # Create prompt for Gemini API
-    prompt_text = f"Provide legal guidance based on the following location ({location}) and query: {query}"
-    logger.debug(f"Generated prompt: {prompt_text}")
+    # Create system-level prompt for rules
+    system_prompt = (
+        "You are an advanced legal assistant AI that provides clear, concise, and structured guidance. "
+        "Structure your response as follows:\n"
+        "1. A short summary of key points (2-3 sentences).\n"
+        "2. Immediate actions the user should take (use bullet points).\n"
+        "3. Detailed steps or legal processes (use numbered lists or sections).\n"
+        "4. End with a disclaimer that this is not legal advice and suggest seeking a lawyer for further help."
+    )
+    user_prompt = f"Provide legal guidance based on the following location ({location}) and query: {query}"
+    final_prompt = system_prompt + "\n\n" + user_prompt
 
     try:
         # Call the Gemini API using the official client
         model = genai.GenerativeModel("gemini-1.5-flash")
-        response = model.generate_content(prompt_text)
+        response = model.generate_content(final_prompt)
         logger.debug(f"Response from Gemini API: {response}")
 
         # Extract answer from the response
@@ -56,12 +64,13 @@ def legal_query():
         else:
             answer = "No response available."
 
-        return jsonify({"answer": answer})
+        # Process answer into sections
+        processed_answer = answer.replace("\n", "<br>")  # Add HTML line breaks for readability
+        return jsonify({"answer": processed_answer})
 
     except Exception as e:
         logger.error(f"Error: {str(e)}")
         return jsonify({"error": str(e)}), 500
-
 
 @app.route("/", methods=["GET"])
 def home():

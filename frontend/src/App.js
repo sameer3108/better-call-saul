@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./App.css"; // Add external styles here
 
 const App = () => {
   const [location, setLocation] = useState("");
@@ -36,43 +37,44 @@ const App = () => {
   };
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      <h1>AI Legal Assistant</h1>
-      <form onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
-        <div style={{ marginBottom: "10px" }}>
-          <label>
-            Location:{" "}
-            <input
-              type="text"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              required
-            />
-          </label>
+    <div className="app-container">
+      <h1 className="title">AI Legal Assistant</h1>
+      <form onSubmit={handleSubmit} className="form">
+        <div className="input-group">
+          <label>Location</label>
+          <input
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            required
+          />
         </div>
-        <div style={{ marginBottom: "10px" }}>
-          <label>
-            Query:{" "}
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              required
-            />
-          </label>
+        <div className="input-group">
+          <label>Query</label>
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            required
+          />
         </div>
-        <button type="submit">Get Advice</button>
+        <button type="submit" className="submit-button">
+          Get Advice
+        </button>
       </form>
 
       {response && (
-        <div>
+        <div className="response-container">
           <h3>Response:</h3>
-          <p>{response}</p>
+          <div
+            className="response-content"
+            dangerouslySetInnerHTML={{ __html: response }} // Render HTML from the backend
+          />
         </div>
       )}
 
       {error && (
-        <div style={{ color: "red" }}>
+        <div className="error-container">
           <h3>Error:</h3>
           <p>{error}</p>
         </div>
