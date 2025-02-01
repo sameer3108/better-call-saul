@@ -15,11 +15,15 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": ["https://bettercallai.netlify.app"]}})
 # CORS(app, resources={r"/*": {"origins": ["*"]}})
 
-
-# Loading API key 
+# Loading API key and final prompt from .env
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+FINAL_PROMPT = os.getenv("FINAL_PROMPT")
+
 if not GEMINI_API_KEY:
     raise ValueError("GEMINI_API_KEY is not set in the environment variables.")
+
+if not FINAL_PROMPT:
+    raise ValueError("FINAL_PROMPT is not set in the environment variables.")
 
 genai.configure(api_key=GEMINI_API_KEY)
 
@@ -37,35 +41,15 @@ def legal_query():
         logger.error("Location or query missing in the request.")
         return jsonify({"error": "Location and query are required."}), 400
 
-    # Create system-level prompt for rules
-    # user_prompt = f"Provide legal guidance based on the following location ({location}) and query: {query}"
-    # final_prompt = system_prompt + "\n\n" + user_prompt
-
-    final_prompt = f"""
-        You are a professional lawyer providing detailed, accurate, and formal legal advice. 
-        Format the response in a short, clear and concise manner with sections like Key Points, 
-        Immediate Actions, and Next Steps. Use professional tone and avoid informal language.
-        Format it in user friendly way and as a professional lawyer do your best in helping the query below. 
-
-        Respond as follows:
-            1. Start with a brief easy to understand summary (dont say **Summary:**) just have a summary with simple words here.
-            2. Provide actionable steps under proper headings.
-            3. Avoid cluttering the text with too many symbols like "**".
-            4. Explain complex words used.
-            5. You can say no when something is not possible
-            6. If something is not related to legal query, simply end response at summary section.
-
-        Location: {location}
-        Query: {query}
-
-        Please provide legal guidance tailored to the location and query above.
-    """
+    # Format the final prompt with location and query
+    formatted_prompt = FINAL_PROMPT.format(location=location, query=query)
+    logger.debug(f"Formatted prompt: {formatted_prompt}")  # Log the formatted prompt
 
     try:
         # Calling Gemini API
         model = genai.GenerativeModel("gemini-1.5-flash")
-        response = model.generate_content(final_prompt)
-        logger.debug(f"Response from Gemini API: {response}")
+        response = model.generate_content(formatted_prompt)
+        logger.debug(f"Response from Gemini API: {response}")  # Log the raw response
 
         # Extract answer from the response
         if response.candidates and len(response.candidates) > 0:
@@ -74,7 +58,7 @@ def legal_query():
             answer = "No response available."
 
         # Process answer into sections
-        processed_answer = answer.replace("\n", "<br>") 
+        processed_answer = answer.replace("\n", "<br>")
         return jsonify({"answer": processed_answer})
 
     except Exception as e:
