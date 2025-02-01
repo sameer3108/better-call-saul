@@ -13,6 +13,8 @@ load_dotenv(find_dotenv())
 app = Flask(__name__)
 
 CORS(app, resources={r"/*": {"origins": ["https://bettercallai.netlify.app"]}})
+# CORS(app, resources={r"/*": {"origins": ["*"]}})
+
 
 # Loading API key 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")

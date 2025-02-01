@@ -17,6 +17,7 @@ const App = () => {
 
     try {
       const res = await fetch("https://better-call-saul.onrender.com/api/legal-query", {
+      // const res = await fetch("http://127.0.0.1:5000/api/legal-query", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,6 +45,7 @@ const App = () => {
   return (
     <div className="app-container">
       <h1 className="title">AI Legal Assistant</h1>
+      <p className="subtitle">Get professional legal advice tailored to your location and query.</p>
       <form onSubmit={handleSubmit} className="form">
         <div className="input-group">
           <label>Location</label>
@@ -51,6 +53,7 @@ const App = () => {
             type="text"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
+            placeholder="Enter your location (e.g., California, USA)"
             required
           />
         </div>
@@ -60,11 +63,12 @@ const App = () => {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            placeholder="Enter your legal query"
             required
           />
         </div>
         <button type="submit" className="submit-button" disabled={loading}>
-          Get Advice
+          {loading ? "Fetching Advice..." : "Get Advice"}
         </button>
       </form>
 

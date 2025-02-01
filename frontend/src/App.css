@@ -11,13 +11,14 @@ body {
 }
 
 .app-container {
-  width: 100%;
+  width: 90%;
   max-width: 700px;
   background: white;
-  padding: 30px;
+  padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  margin: 20px auto; /* Center the container horizontally */
 }
 
 .title {
@@ -25,6 +26,13 @@ body {
   font-size: 26px;
   font-weight: bold;
   color: #333;
+  margin-bottom: 15px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 16px;
+  color: #555;
   margin-bottom: 25px;
 }
 
@@ -38,6 +46,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  text-align: left; /* Align labels and inputs to the left */
 }
 
 label {
@@ -51,6 +60,8 @@ input {
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Ensure inputs take full width */
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
 
 .submit-button {
@@ -63,6 +74,7 @@ input {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100%; /* Ensure button takes full width */
 }
 
 .submit-button:hover {
@@ -139,4 +151,81 @@ input {
 
 .response-content p {
   margin: 10px 0;
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+  .app-container {
+    width: 95%;
+    padding: 15px;
+    margin: 10px auto; /* Ensure centering on small screens */
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .submit-button {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .response-container {
+    padding: 15px;
+  }
+
+  .response-container h3 {
+    font-size: 18px;
+  }
+
+  .response-content {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    width: 100%;
+    padding: 10px;
+    margin: 5px auto; /* Further adjustment for very narrow screens */
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+  }
+
+  input {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .submit-button {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .response-container {
+    padding: 10px;
+  }
+
+  .response-container h3 {
+    font-size: 16px;
+  }
+
+  .response-content {
+    font-size: 13px;
+  }
 }
