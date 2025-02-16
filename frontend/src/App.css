@@ -185,16 +185,19 @@ input {
   margin-bottom: 15px;
   line-height: 1.5;
   color: #333;
+  text-align: left;
 }
 
 .dialog-content ul {
   margin: 15px 0;
   padding-left: 20px;
+  text-align: left;
 }
 
 .dialog-content li {
   margin-bottom: 10px;
   color: #555;
+  text-align: left;
 }
 
 .dialog-close-button {

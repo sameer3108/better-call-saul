@@ -52,12 +52,12 @@ const App = () => {
       {showDialog && (
         <div className="dialog-overlay">
           <div className="dialog-content">
-            <h2>Better Call Saul</h2>
-            <p>This is legal assistance tool powered by AI. Please note that:</p>
+            <h2>Legal Disclaimer</h2>
+            <p>This is a legal assistance tool powered by AI. Please note that:</p>
             <ul>
-              <li>This tool provides general legal information only</li>
-              <li>It is not a substitute for professional legal advice</li>
-              <li>Consult with a qualified attorney for specific legal matters</li>
+              <li>This tool provides general legal information only.</li>
+              <li>It is not a substitute for professional legal advice.</li>
+              <li>Consult with a qualified attorney for specific legal matters.</li>
             </ul>
             <button className="dialog-close-button" onClick={handleDialogClose}>I understand</button>
           </div>
