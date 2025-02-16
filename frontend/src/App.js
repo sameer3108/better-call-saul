@@ -8,6 +8,11 @@ const App = () => {
   const [response, setResponse] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showDialog, setShowDialog] = useState(true);
+
+  const handleDialogClose = () => {
+    setShowDialog(false);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,6 +49,20 @@ const App = () => {
 
   return (
     <div className="app-container">
+      {showDialog && (
+        <div className="dialog-overlay">
+          <div className="dialog-content">
+            <h2>Better Call Saul</h2>
+            <p>This is legal assistance tool powered by AI. Please note that:</p>
+            <ul>
+              <li>This tool provides general legal information only</li>
+              <li>It is not a substitute for professional legal advice</li>
+              <li>Consult with a qualified attorney for specific legal matters</li>
+            </ul>
+            <button className="dialog-close-button" onClick={handleDialogClose}>I understand</button>
+          </div>
+        </div>
+      )}
       <h1 className="title">AI Legal Assistant</h1>
       <p className="subtitle">Get professional legal advice tailored to your location and query.</p>
       <form onSubmit={handleSubmit} className="form">
