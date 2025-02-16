@@ -93,7 +93,7 @@ const App = () => {
         {messages.map((message, index) => (
           <div key={index} className={`message ${message.type}`}>
             <div className="message-header">
-              {message.type === 'user' ? `You (from $(message.location))` : 'Saul'}
+              {message.type === 'user' ? `You (from ${message.location})` : 'Saul'}
             </div>
             <div className="message-content">
               {message.content}
