@@ -17,7 +17,6 @@ const App = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    setResponse("");
     setLoading(true);
 
     const userMessage = {
