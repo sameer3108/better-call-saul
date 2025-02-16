@@ -6,7 +6,6 @@ const App = () => {
   const [location, setLocation] = useState("");
   const [query, setQuery] = useState("");
   const [messages, setMessages] = useState([]);
-  const [response, setResponse] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showDialog, setShowDialog] = useState(true);
