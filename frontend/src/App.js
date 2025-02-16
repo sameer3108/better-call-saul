@@ -92,11 +92,9 @@ const App = () => {
       <div className="chat-container">
         {messages.map((message, index) => (
           <div key={index} className={`message ${message.type}`}>
-            {message.type === 'user' && (
-              <div className="message-header">
-                You (from {message.location})
-              </div>
-            )}
+            <div className="message-header">
+              {message.type === 'user' ? `You (from $(message.location))` : 'Saul'}
+            </div>
             <div className="message-content">
               {message.content}
             </div>
