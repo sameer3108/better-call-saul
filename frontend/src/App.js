@@ -75,7 +75,7 @@ const App = () => {
           </div>
         </div>
       )}
-      <h1 className="title">AI Legal Assistant</h1>
+      <h1 className="title">Legal AI Assistant</h1>
       {messages.length === 0 && (
         <div className='input group location-input'>
           <label>Location</label>

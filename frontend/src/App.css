@@ -14,7 +14,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  height: 60vh;
+  height: calc(90vh - 180px);
   overflow-y: auto;
   padding: 20px;
   margin-bottom: 20px;
@@ -95,7 +95,12 @@ body {
   display: flex;
   flex-direction: column;
   height: 90vh;
+  width: 800px;
   margin: 20px auto;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px
 }
 
 .title {
@@ -294,10 +299,9 @@ input {
 }
 
 /* Media Queries for Mobile Responsiveness */
-@media (max-width: 768px) {
+@media (max-width: 850px) {
   .app-container {
     width: 95%;
-    padding: 15px;
     margin: 10px auto; /* Ensure centering on small screens */
   }
 
@@ -335,8 +339,9 @@ input {
 @media (max-width: 480px) {
   .app-container {
     width: 100%;
-    padding: 10px;
-    margin: 5px auto; /* Further adjustment for very narrow screens */
+    margin: 0;
+    border-radius: 0;
+    /* Further adjustment for very narrow screens */
   }
 
   .title {
