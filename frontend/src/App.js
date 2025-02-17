@@ -29,7 +29,7 @@ const App = () => {
 
     try {
       const res = await fetch("https://better-call-saul.onrender.com/api/legal-query", {
-      // const res = await fetch("http://127.0.0.1:5000/api/legal-query", {
+        // const res = await fetch("http://127.0.0.1:5000/api/legal-query", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -96,7 +96,12 @@ const App = () => {
               {message.type === 'user' ? `You (from ${message.location})` : 'Saul'}
             </div>
             <div className="message-content">
-              {message.content}
+              {message.content.split('<br>').map((text, i) => (
+                <React.Fragment key={i}>
+                  {text}
+                  {i !== message.content.split('<br>').length - 1 && <br />}
+                </React.Fragment>
+              ))}
             </div>
           </div>
         ))}
@@ -130,7 +135,7 @@ const App = () => {
           <p>{error}</p>
         </div>
       )}
-      </div>
+    </div>
   );
 };
 
